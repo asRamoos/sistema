@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHADOW SYSTEM | GOD MODE</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap');
+
+        :root {
+            --neon-cyan: #00f2ff;
+            --mana-purple: #9d00ff;
+            --gold: #ffcc00;
+            --blood: #ff3c3c;
+            --void: #020205;
+            --panel: rgba(10, 10, 18, 0.95);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--void);
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* --- BACKGROUND ANIMADO (MANA PARTICLES) --- */
+        #bg-canvas { position: fixed; top: 0; left: 0; z-index: -1; }
+
+        /* --- UI LAYOUT --- */
+        .app-wrapper { max-width: 1400px; margin: 0 auto; padding: 20px; position: relative; }
+        .glass {
+            background: var(--panel);
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            backdrop-filter: blur(15px);
+            border-radius: 2px;
+            padding: 20px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            margin-bottom: 20px;
+        }
+
+        .system-title {
+            font-family: 'Orbitron';
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        /* --- GRID PRINCIPAL --- */
+        .god-grid { display: grid; grid-template-columns: 320px 1fr 320px; gap: 20px; }
+
+        /* --- ATRIBUTOS & RADAR --- */
+        .radar-container { width: 100%; height: 250px; margin-top: 15px; }
+
+        /* --- QUESTS & STREAK --- */
+        .streak-counter {
+            font-size: 2rem; color: var(--gold); font-family: 'Orbitron'; text-align: center;
+        }
+
+        /* --- TAB SYSTEM --- */
+        .nav-tabs { display: flex; gap: 10px; margin-bottom: 15px; }
+        .tab {
+            padding: 10px 15px; cursor: pointer; border: 1px solid #333; font-size: 11px;
+            font-family: 'Orbitron'; transition: 0.3s;
+        }
+        .tab.active { border-color: var(--neon-cyan); background: rgba(0, 242, 255, 0.1); color: var(--neon-cyan); }
+
+        /* --- INPUTS FUTURISTAS --- */
+        input, select, textarea {
+            background: rgba(255,255,255,0.05); border: 1px solid #333;
+            color: white; padding: 10px; width: 100%; margin-bottom: 10px; font-family: 'Rajdhani';
+        }
+        input:focus { border-color: var(--neon-cyan); outline: none; }
+
+        .btn {
+            background: transparent; border: 1px solid var(--neon-cyan); color: var(--neon-cyan);
+            padding: 10px; cursor: pointer; font-family: 'Orbitron'; text-transform: uppercase; width: 100%;
+        }
+        .btn:hover { background: var(--neon-cyan); color: #000; box-shadow: 0 0 15px var(--neon-cyan); }
+
+        /* --- DUNGEON MODE (POMODORO) --- */
+        #dungeon-timer { font-size: 3rem; font-family: 'Orbitron'; color: var(--blood); text-align: center; }
+
+        .hidden { display: none !important; }
+
+        /* --- SCROLLBAR --- */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-thumb { background: var(--neon-cyan); }
+    </style>
+</head>
+<body>
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="app-wrapper">
+        <header class="glass" style="display: flex; justify-content: space-between; align-items: center;">
+            <h1 class="system-title">SHADOW SYSTEM // GOD MODE</h1>
+            <div id="clock" style="font-family: 'Orbitron'; color: var(--neon-cyan);">00:00:00</div>
+        </header>
+
+        <div class="god-grid">
+            <aside>
+                <div class="glass">
+                    <h3 class="system-title" style="font-size: 12px;">STATUS DO MONARCA</h3>
+                    <div id="player-rank" style="font-size: 4rem; text-align: center; font-family: 'Orbitron'; color: var(--neon-cyan);">E</div>
+                    
+                    <div class="radar-container">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <p>STREAK ATUAL: <span class="streak-counter" id="streak-val">0</span> DIAS</p>
+                        <p>GOLD: <span id="gold-val" style="color: var(--gold);">0</span> G</p>
+                    </div>
+                </div>
+
+                <div class="glass">
+                    <h3 class="system-title" style="font-size: 12px;">DAILY QUESTS</h3>
+                    <div id="quest-list" style="margin-top: 10px; font-size: 14px;">
+                        </div>
+                </div>
+            </aside>
+
+            <main>
+                <nav class="nav-tabs">
+                    <div class="tab active" onclick="Tab.switch('t-phys')">FÍSICO</div>
+                    <div class="tab" onclick="Tab.switch('t-fin')">FINANCEIRO</div>
+                    <div class="tab" onclick="Tab.switch('t-ment')">MENTAL/SPIRIT</div>
+                    <div class="tab" onclick="Tab.switch('t-shop')">LOJA</div>
+                    <div class="tab" onclick="Tab.switch('t-dungeon')" style="color: var(--blood);">DUNGEON</div>
+                </nav>
+
+                <div id="t-phys" class="tab-content glass">
+                    <h3>LOG DE TREINAMENTO</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0;">
+                        <input type="time" id="phys-start" title="Início">
+                        <input type="time" id="phys-end" title="Término">
+                    </div>
+                    <input type="text" id="phys-ex" placeholder="Exercício (ex: Flexões)">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <input type="number" id="phys-sets" placeholder="Séries">
+                        <input type="number" id="phys-reps" placeholder="Reps">
+                    </div>
+                    <button class="btn" onclick="Engine.addWorkout()">REGISTRAR E QUEIMAR CALORIAS</button>
+                    <div id="phys-history" style="height: 200px; overflow-y: auto; margin-top: 15px; border-top: 1px solid #222;"></div>
+                </div>
+
+                <div id="t-fin" class="tab-content glass hidden">
+                    <h3>FLUXO DE CAIXA</h3>
+                    <h2 id="fin-balance" style="text-align: center; margin: 15px 0;">R$ 0.00</h2>
+                    <input type="text" id="fin-desc" placeholder="Descrição do Gasto/Ganho">
+                    <input type="number" id="fin-val" placeholder="Valor (R$)">
+                    <select id="fin-type">
+                        <option value="in">GANHO (+)</option>
+                        <option value="out">GASTO (-)</option>
+                    </select>
+                    <button class="btn" onclick="Engine.addFinance()">EXECUTAR TRANSAÇÃO</button>
+                    <div id="fin-history" style="height: 200px; overflow-y: auto; margin-top: 15px;"></div>
+                </div>
+
+                <div id="t-ment" class="tab-content glass hidden">
+                    <h3>EXPANSÃO DE CONSCIÊNCIA</h3>
+                    <label>MENTAL (Estudos/Ideias)</label>
+                    <textarea id="ment-note" rows="3" placeholder="O que você aprendeu hoje?"></textarea>
+                    <label>ESPIRITUAL (Paz/Propósito)</label>
+                    <textarea id="spir-note" rows="3" placeholder="Como está sua mente agora?"></textarea>
+                    <button class="btn" onclick="Engine.saveInsight()">SALVAR NO ARQUIVO DA ALMA</button>
+                </div>
+
+                <div id="t-shop" class="tab-content glass hidden">
+                    <h3>SISTEMA DE RECOMPENSAS</h3>
+                    <p style="font-size: 11px; margin-bottom: 10px;">Use seu Gold acumulado para "comprar" recompensas reais.</p>
+                    <div id="shop-items">
+                        <div class="tab" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                            <span>CHEAT MEAL (Refeição Livre)</span>
+                            <button class="btn" style="width: 80px;" onclick="Engine.buy(500)">500G</button>
+                        </div>
+                        <div class="tab" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                            <span>1H GAMING / LAZER</span>
+                            <button class="btn" style="width: 80px;" onclick="Engine.buy(200)">200G</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="t-dungeon" class="tab-content glass hidden">
+                    <h3 style="color: var(--blood);">DUNGEON MODE</h3>
+                    <p style="text-align: center; font-size: 12px;">ENTRE EM FOCO TOTAL PARA COMPLETAR A TASK</p>
+                    <div id="dungeon-timer">25:00</div>
+                    <button class="btn" id="dungeon-btn" onclick="Engine.toggleDungeon()">INICIAR INCURSÃO</button>
+                </div>
+            </main>
+
+            <aside>
+                <div class="glass">
+                    <h3 class="system-title" style="font-size: 12px;">SISTEMA</h3>
+                    <button class="btn" style="margin-top: 10px; font-size: 9px;" onclick="Engine.exportData()">EXPORTAR BACKUP (.JSON)</button>
+                    <div style="margin-top: 10px;">
+                        <input type="file" id="import-file" style="display: none;" onchange="Engine.importData(event)">
+                        <button class="btn" style="font-size: 9px;" onclick="document.getElementById('import-file').click()">IMPORTAR BACKUP</button>
+                    </div>
+                </div>
+
+                <div class="glass">
+                    <h3 class="system-title" style="font-size: 12px;">VISÃO DE 10 ANOS</h3>
+                    <div id="vision-display" style="font-size: 13px; color: #888; font-style: italic; line-height: 1.6;">
+                        </div>
+                    <button class="btn" style="margin-top: 10px; font-size: 9px;" onclick="Engine.editVision()">EDITAR VISÃO</button>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <script>
+        /* --- ENGINE CORE --- */
+        const Engine = {
+            data: {
+                player: { name: 'Player', rank: 'E', gold: 0, streak: 0, vision: 'Minha visão do futuro...' },
+                stats: { phys: 10, fin: 10, ment: 10, spir: 10, exp: 0 },
+                history: { phys: [], fin: [], insights: [] },
+                lastCheckIn: null
+            },
+            timer: null,
+            timerRunning: false,
+
+            init() {
+                const saved = localStorage.getItem('SHADOW_GOD_V1');
+                if (saved) this.data = JSON.parse(saved);
+                
+                this.initCanvas();
+                this.initRadar();
+                this.updateUI();
+                this.checkStreak();
+                this.generateQuests();
+                
+                setInterval(() => {
+                    document.getElementById('clock').innerText = new Date().toLocaleTimeString();
+                }, 1000);
+            },
+
+            save() {
+                localStorage.setItem('SHADOW_GOD_V1', JSON.stringify(this.data));
+                this.updateUI();
+            },
+
+            updateUI() {
+                document.getElementById('player-rank').innerText = this.data.player.rank;
+                document.getElementById('gold-val').innerText = Math.floor(this.data.player.gold);
+                document.getElementById('streak-val').innerText = this.data.player.streak;
+                document.getElementById('vision-display').innerText = this.data.player.vision;
+                
+                // Finance Balance
+                const bal = this.data.history.fin.reduce((acc, curr) => acc + curr.val, 0);
+                const balEl = document.getElementById('fin-balance');
+                balEl.innerText = `R$ ${bal.toFixed(2)}`;
+                balEl.style.color = bal >= 0 ? 'var(--neon-cyan)' : 'var(--blood)';
+
+                this.updateRadar();
+                this.renderPhys();
+                this.renderFin();
+            },
+
+            // --- FISICO ---
+            addWorkout() {
+                const ex = document.getElementById('phys-ex').value;
+                const sets = parseInt(document.getElementById('phys-sets').value);
+                const reps = parseInt(document.getElementById('phys-reps').value);
+                const start = document.getElementById('phys-start').value;
+                const end = document.getElementById('phys-end').value;
+
+                if (!ex || !sets) return;
+
+                const burned = (sets * reps * 0.45).toFixed(1); // Média de calorias por rep
+                this.data.history.phys.unshift({
+                    ex, sets, reps, start, end, burned, date: new Date().toLocaleDateString()
+                });
+
+                this.data.stats.phys += 2;
+                this.data.player.gold += 50; // Recompensa por treinar
+                this.save();
+                alert(`Treino registrado! Você queimou aproximadamente ${burned} calorias.`);
+            },
+
+            renderPhys() {
+                const container = document.getElementById('phys-history');
+                container.innerHTML = this.data.history.phys.map(h => `
+                    <div style="font-size: 12px; padding: 8px; border-bottom: 1px solid #222;">
+                        <b>${h.ex}</b>: ${h.sets}x${h.reps} | <span style="color: var(--neon-cyan)">${h.burned} cal</span> | ${h.start}-${h.end}
+                    </div>
+                `).join('');
+            },
+
+            // --- FINANCEIRO ---
+            addFinance() {
+                const desc = document.getElementById('fin-desc').value;
+                const val = parseFloat(document.getElementById('fin-val').value);
+                const type = document.getElementById('fin-type').value;
+
+                if (!desc || isNaN(val)) return;
+
+                const finalVal = type === 'in' ? val : -val;
+                this.data.history.fin.unshift({ desc, val: finalVal, date: new Date().toLocaleTimeString() });
+                
+                this.data.stats.fin += (type === 'in' ? 1 : 0.5);
+                this.save();
+            },
+
+            renderFin() {
+                const container = document.getElementById('fin-history');
+                container.innerHTML = this.data.history.fin.map(f => `
+                    <div style="font-size: 12px; padding: 8px; display:flex; justify-content:space-between;">
+                        <span>${f.desc}</span>
+                        <span style="color: ${f.val >= 0 ? 'var(--neon-cyan)' : 'var(--blood)'}">${f.val >= 0 ? '+' : ''}${f.val.toFixed(2)}</span>
+                    </div>
+                `).join('');
+            },
+
+            // --- DUNGEON (POMODORO) ---
+            toggleDungeon() {
+                if (this.timerRunning) {
+                    clearInterval(this.timer);
+                    this.timerRunning = false;
+                    document.getElementById('dungeon-btn').innerText = "REINICIAR INCURSÃO";
+                } else {
+                    let time = 25 * 60;
+                    this.timerRunning = true;
+                    document.getElementById('dungeon-btn').innerText = "ABANDONAR DUNGEON";
+                    
+                    this.timer = setInterval(() => {
+                        time--;
+                        let min = Math.floor(time / 60);
+                        let sec = time % 60;
+                        document.getElementById('dungeon-timer').innerText = `${min}:${sec < 10 ? '0'+sec : sec}`;
+                        
+                        if (time <= 0) {
+                            clearInterval(this.timer);
+                            this.timerRunning = false;
+                            this.data.player.gold += 100;
+                            this.data.stats.ment += 5;
+                            alert("DUNGEON CONCLUÍDA! +100G");
+                            this.save();
+                        }
+                    }, 1000);
+                }
+            },
+
+            // --- RADAR CHART ---
+            initRadar() {
+                const ctx = document.getElementById('radarChart').getContext('2d');
+                this.radar = new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['FÍSICO', 'FINANCEIRO', 'MENTAL', 'ESPIRITUAL'],
+                        datasets: [{
+                            label: 'ATRIBUTOS',
+                            data: [this.data.stats.phys, this.data.stats.fin, this.data.stats.ment, this.data.stats.spir],
+                            backgroundColor: 'rgba(0, 242, 255, 0.2)',
+                            borderColor: '#00f2ff',
+                            borderWidth: 2,
+                            pointBackgroundColor: '#00f2ff'
+                        }]
+                    },
+                    options: {
+                        scales: { r: { min: 0, ticks: { display: false }, grid: { color: '#333' }, pointLabels: { color: '#fff' } } },
+                        plugins: { legend: { display: false } }
+                    }
+                });
+            },
+
+            updateRadar() {
+                if (this.radar) {
+                    this.radar.data.datasets[0].data = [
+                        this.data.stats.phys, 
+                        this.data.stats.fin, 
+                        this.data.stats.ment, 
+                        this.data.stats.spir
+                    ];
+                    this.radar.update();
+                }
+            },
+
+            // --- SYSTEM UTILS ---
+            checkStreak() {
+                const today = new Date().toDateString();
+                if (this.data.lastCheckIn !== today) {
+                    if (this.data.lastCheckIn === new Date(Date.now() - 86400000).toDateString()) {
+                        this.data.player.streak++;
+                    } else if (this.data.lastCheckIn !== null) {
+                        this.data.player.streak = 0;
+                        alert("STREAK QUEBRADA! O sistema detectou inatividade.");
+                    }
+                    this.data.lastCheckIn = today;
+                    this.save();
+                }
+            },
+
+            generateQuests() {
+                const quests = [
+                    "Beba 3L de água",
+                    "Complete 1 Dungeon (25min)",
+                    "Registre um ganho financeiro",
+                    "Medite por 10 minutos"
+                ];
+                const container = document.getElementById('quest-list');
+                container.innerHTML = quests.map(q => `
+                    <div style="margin-bottom: 8px;">
+                        <input type="checkbox" style="width: 15px; height: 15px; margin-right: 10px;"> ${q}
+                    </div>
+                `).join('');
+            },
+
+            exportData() {
+                const blob = new Blob([JSON.stringify(this.data)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `shadow_backup_${new Date().getTime()}.json`;
+                a.click();
+            },
+
+            importData(event) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    this.data = JSON.parse(e.target.result);
+                    this.save();
+                    location.reload();
+                };
+                reader.readAsText(event.target.files[0]);
+            },
+
+            initCanvas() {
+                const canvas = document.getElementById('bg-canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                let particles = [];
+                for(let i=0; i<100; i++) particles.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, s: Math.random()*2, v: Math.random()*0.5 });
+                function anim() {
+                    ctx.clearRect(0,0,canvas.width, canvas.height);
+                    ctx.fillStyle = "rgba(0, 242, 255, 0.2)";
+                    particles.forEach(p => {
+                        ctx.beginPath(); ctx.arc(p.x, p.y, p.s, 0, Math.PI*2); ctx.fill();
+                        p.y -= p.v; if(p.y < 0) p.y = canvas.height;
+                    });
+                    requestAnimationFrame(anim);
+                }
+                anim();
+            },
+
+            editVision() {
+                const v = prompt("Qual sua visão de 10 anos?", this.data.player.vision);
+                if(v) { this.data.player.vision = v; this.save(); }
+            }
+        };
+
+        const Tab = {
+            switch(id) {
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.getElementById(id).classList.remove('hidden');
+                event.target.classList.add('active');
+            }
+        };
+
+        window.onload = () => Engine.init();
+    </script>
+</body>
+</html>
