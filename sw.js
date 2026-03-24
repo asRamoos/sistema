@@ -1,4 +1,4 @@
-const CACHE = 'shadow-system-v8';
+const CACHE = 'shadow-system-v9';
 const ASSETS = ['./', './index.html', './manifest.webmanifest', './sw.js'];
 
 self.addEventListener('install', event => {
