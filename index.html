@@ -608,6 +608,348 @@
       .integrated-chart-wrapper { height: 210px; }
     }
 
+    /* ===== MOBILE FIT REAL ===== */
+
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+body {
+  font-size: 14px;
+}
+
+img,
+canvas,
+video,
+svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.card,
+.panel,
+.header,
+.kpi,
+.goal-card,
+.overall-panel,
+.login-hero,
+.login-panel,
+.hero-item,
+.overall-stat {
+  min-width: 0;
+}
+
+.app-shell,
+.grid-2,
+.grid-3,
+.grid-4,
+.kpi-grid,
+.chart-meta-grid,
+.overall-grid,
+.music-grid,
+.hero-stats {
+  min-width: 0;
+}
+
+.line-wrapper,
+.integrated-chart-wrapper,
+.radar-wrapper {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.line-wrapper canvas,
+.integrated-chart-wrapper canvas,
+.radar-wrapper canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* DESKTOP */
+@media (min-width: 901px) {
+  .app-shell {
+    grid-template-columns: 320px minmax(0, 1fr) 320px;
+    gap: 12px;
+    padding: 16px;
+  }
+}
+
+/* TABLET E CELULAR */
+@media (max-width: 900px) {
+  .app-shell {
+    grid-template-columns: 1fr !important;
+    gap: 8px;
+    padding: 8px;
+    width: 100%;
+  }
+
+  .header {
+    width: calc(100% - 16px);
+    margin: 8px auto 0;
+    padding: 10px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .title {
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+
+  .header-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .header-actions .btn,
+  .header-actions .chip {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    white-space: nowrap;
+    gap: 6px;
+    padding-bottom: 4px;
+    scrollbar-width: thin;
+  }
+
+  .tab-btn {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+
+  .grid-2,
+  .grid-3,
+  .grid-4,
+  .kpi-grid,
+  .chart-meta-grid,
+  .overall-grid,
+  .music-grid,
+  .hero-stats {
+    grid-template-columns: 1fr !important;
+  }
+
+  .panel {
+    padding: 10px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+  }
+
+  .kpi {
+    padding: 10px;
+  }
+
+  .rank-big {
+    font-size: 40px;
+  }
+
+  .overall-main {
+    padding: 12px;
+  }
+
+  .overall-main strong {
+    font-size: 34px;
+  }
+
+  .overall-stat strong {
+    font-size: 20px;
+  }
+
+  .metric {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+  }
+
+  .line-wrapper {
+    height: 180px !important;
+  }
+
+  .integrated-chart-wrapper {
+    height: 200px !important;
+  }
+
+  .radar-wrapper {
+    height: 190px !important;
+  }
+
+  .timeline,
+  .mini-list {
+    max-height: 180px;
+  }
+
+  .utility-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .utility-row .btn,
+  .utility-row input,
+  .utility-row select {
+    width: 100%;
+  }
+}
+
+/* CELULAR */
+@media (max-width: 600px) {
+  .screen {
+    padding: 8px;
+  }
+
+  .card {
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  .login-shell {
+    grid-template-columns: 1fr !important;
+    min-height: auto;
+  }
+
+  .login-hero {
+    padding: 12px;
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .login-panel {
+    padding: 12px;
+  }
+
+  .logo {
+    font-size: 22px;
+    letter-spacing: 2px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+  }
+
+  .header {
+    padding: 8px;
+  }
+
+  .header-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .title {
+    font-size: 13px;
+  }
+
+  .chip {
+    font-size: 11px;
+  }
+
+  .section-title,
+  .small-muted {
+    font-size: 11px;
+  }
+
+  .btn,
+  input,
+  textarea,
+  select {
+    min-height: 42px;
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .rank-big {
+    font-size: 34px;
+  }
+
+  .overall-main strong {
+    font-size: 28px;
+  }
+
+  .overall-stat strong {
+    font-size: 18px;
+  }
+
+  .line-wrapper {
+    height: 165px !important;
+  }
+
+  .integrated-chart-wrapper {
+    height: 185px !important;
+  }
+
+  .radar-wrapper {
+    height: 170px !important;
+  }
+
+  .metric {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .goal-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .toast-wrap {
+    right: 8px;
+    left: 8px;
+    bottom: 8px;
+    width: auto;
+  }
+}
+
+/* TELEFONE PEQUENO */
+@media (max-width: 390px) {
+  .panel,
+  .login-hero,
+  .login-panel {
+    padding: 8px;
+  }
+
+  .title {
+    font-size: 12px;
+  }
+
+  .tab-btn {
+    font-size: 11px;
+    padding: 7px 9px;
+  }
+
+  .line-wrapper {
+    height: 150px !important;
+  }
+
+  .integrated-chart-wrapper {
+    height: 170px !important;
+  }
+
+  .radar-wrapper {
+    height: 155px !important;
+  }
+}
+    
   </style>
 </head>
 <body>
@@ -1108,10 +1450,27 @@
         </div>
 
         <div class="panel">
-          <h3 class="section-title">Gráfico Integrado • Físico + Finanças</h3>
-          <small class="small-muted">Diagrama de linhas integrado (físico e finanças)</small>
-          <div class="line-wrapper integrated-chart-wrapper"><canvas id="progressChart"></canvas></div>
-        </div>
+  <h3 class="section-title">Gráfico Integrado • Físico + Finanças</h3>
+
+  <div class="chart-meta-grid">
+    <div class="kpi mini">
+      <small>Peso Atual</small>
+      <strong id="integrated-physical-score">0 kg</strong>
+    </div>
+    <div class="kpi mini">
+      <small>Patrimônio Atual</small>
+      <strong id="integrated-finance-score">R$ 0,00</strong>
+    </div>
+  </div>
+
+  <small class="small-muted">
+    Linha neon azul = peso real • linha dourada = saldo acumulado • projeção física = meta de peso
+  </small>
+
+  <div class="line-wrapper integrated-chart-wrapper">
+    <canvas id="progressChart"></canvas>
+  </div>
+</div>
 
         <div class="panel">
           <h3 class="section-title">Timeline de Sistema</h3>
@@ -1140,8 +1499,8 @@
       update() {
         const c = this.ctx.canvas;
         const rect = c.getBoundingClientRect();
-        const cssW = Math.max(280, Math.floor(rect.width || c.clientWidth || 300));
-        const cssH = Math.max(160, Math.floor(rect.height || c.clientHeight || 180));
+        const cssW = Math.max(180, Math.floor(rect.width || c.clientWidth || 220));
+        const cssH = Math.max(120, Math.floor(rect.height || c.clientHeight || 140));
         const w = c.width = cssW * devicePixelRatio;
         const h = c.height = cssH * devicePixelRatio;
         const ctx = this.ctx;
@@ -1151,62 +1510,125 @@
         if (this.type === 'line') this.drawLine(w, h);
         ctx.restore();
       }
-      drawLine(w, h) {
-        const ctx = this.ctx;
-        const sets = this.data.datasets || [];
-        const all = sets.flatMap(s => s.data || []);
-        const max = Math.max(1, ...all);
-        const min = Math.min(0, ...all);
-        const orangeTheme = this.options.theme === 'orange-pro';
-        const left = 52;
-        const right = 18;
-        const top = 16;
-        const bottom = 34;
+ drawLine(w, h) {
+  const ctx = this.ctx;
+  const sets = this.data.datasets || [];
+  const left = 58;
+  const right = 58;
+  const top = 18;
+  const bottom = 34;
+  const pw = w - left - right;
+  const ph = h - top - bottom;
 
-        if (orangeTheme) {
-          ctx.fillStyle = '#151b26';
-          ctx.fillRect(0, 0, w, h);
-          ctx.strokeStyle = '#f26a21';
-          ctx.lineWidth = 1.2;
-          for (let i = 0; i <= 5; i++) {
-            const y = top + (i * ((h - top - bottom) / 5));
-            ctx.beginPath();
-            ctx.moveTo(left, y);
-            ctx.lineTo(w - right, y);
-            ctx.stroke();
-          }
-          ctx.strokeStyle = '#f26a21';
-          ctx.lineWidth = 2;
-          ctx.beginPath();
-          ctx.moveTo(left, top);
-          ctx.lineTo(left, h - bottom);
-          ctx.lineTo(w - right, h - bottom);
-          ctx.stroke();
-        }
+  if (pw <= 0 || ph <= 0) return;
 
-        sets.forEach(s => {
-          ctx.beginPath();
-          (s.data || []).forEach((v, i) => {
-            const x = left + (i * ((w - left - right) / Math.max(1, (s.data.length - 1))));
-            const y = h - bottom - (((v - min) / Math.max(1, (max - min))) * (h - top - bottom));
-            if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-          });
-          ctx.strokeStyle = s.borderColor || '#00e7ff';
-          ctx.lineWidth = orangeTheme ? 4 : 2;
-          ctx.stroke();
+  ctx.fillStyle = '#151b26';
+  ctx.fillRect(0, 0, w, h);
 
-          if (orangeTheme) {
-            (s.data || []).forEach((v, i) => {
-              const x = left + (i * ((w - left - right) / Math.max(1, (s.data.length - 1))));
-              const y = h - bottom - (((v - min) / Math.max(1, (max - min))) * (h - top - bottom));
-              ctx.beginPath();
-              ctx.fillStyle = s.borderColor || '#f26a21';
-              ctx.arc(x, y, 4.2, 0, Math.PI * 2);
-              ctx.fill();
-            });
-          }
-        });
+  const visibleSets = sets.filter(s => !s.hidden);
+
+  const leftSets = visibleSets.filter(s => (s.axis || 'left') === 'left');
+  const rightSets = visibleSets.filter(s => s.axis === 'right');
+
+  const leftAll = leftSets.flatMap(s => (s.data || []).filter(v => v !== null && v !== undefined));
+  const rightAll = rightSets.flatMap(s => (s.data || []).filter(v => v !== null && v !== undefined));
+
+  const leftMin = leftAll.length ? Math.min(...leftAll) : 0;
+  const leftMax = leftAll.length ? Math.max(...leftAll) : 10;
+  const rightMin = rightAll.length ? Math.min(...rightAll) : 0;
+  const rightMax = rightAll.length ? Math.max(...rightAll) : 10;
+
+  const leftRange = Math.max(1, leftMax - leftMin);
+  const rightRange = Math.max(1, rightMax - rightMin);
+
+  const getX = (i, len) => left + (i * (pw / Math.max(1, len - 1)));
+  const getYLeft = (v) => h - bottom - (((v - leftMin) / leftRange) * ph);
+  const getYRight = (v) => h - bottom - (((v - rightMin) / rightRange) * ph);
+
+  for (let i = 0; i <= 4; i++) {
+    const gy = top + (i * (ph / 4));
+    ctx.beginPath();
+    ctx.strokeStyle = 'rgba(116,138,190,.22)';
+    ctx.lineWidth = 1;
+    ctx.moveTo(left, gy);
+    ctx.lineTo(w - right, gy);
+    ctx.stroke();
+  }
+
+  ctx.beginPath();
+  ctx.strokeStyle = '#00e7ff';
+  ctx.lineWidth = 2;
+  ctx.moveTo(left, top);
+  ctx.lineTo(left, h - bottom);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.strokeStyle = '#ffd45b';
+  ctx.lineWidth = 2;
+  ctx.moveTo(w - right, top);
+  ctx.lineTo(w - right, h - bottom);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.strokeStyle = '#8ea0c6';
+  ctx.lineWidth = 2;
+  ctx.moveTo(left, h - bottom);
+  ctx.lineTo(w - right, h - bottom);
+  ctx.stroke();
+
+  ctx.font = '12px Segoe UI';
+  ctx.textBaseline = 'middle';
+
+  ctx.fillStyle = '#00e7ff';
+  for (let i = 0; i <= 4; i++) {
+    const value = leftMin + ((leftMax - leftMin) * (4 - i) / 4);
+    const y = top + (i * (ph / 4));
+    ctx.fillText(value.toFixed(1), 8, y);
+  }
+
+  ctx.fillStyle = '#ffd45b';
+  for (let i = 0; i <= 4; i++) {
+    const value = rightMin + ((rightMax - rightMin) * (4 - i) / 4);
+    const y = top + (i * (ph / 4));
+    ctx.fillText(value.toFixed(0), w - right + 10, y);
+  }
+
+  visibleSets.forEach((s) => {
+    const data = s.data || [];
+    const isRight = s.axis === 'right';
+
+    ctx.beginPath();
+
+    data.forEach((v, i) => {
+      if (v === null || v === undefined) return;
+
+      const x = getX(i, data.length);
+      const y = isRight ? getYRight(v) : getYLeft(v);
+
+      if (i === 0 || data[i - 1] === null || data[i - 1] === undefined) {
+        ctx.moveTo(x, y);
+      } else {
+        ctx.lineTo(x, y);
       }
+    });
+
+    ctx.strokeStyle = s.borderColor || '#00e7ff';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+
+    data.forEach((v, i) => {
+      if (v === null || v === undefined) return;
+
+      const x = getX(i, data.length);
+      const y = isRight ? getYRight(v) : getYLeft(v);
+
+      ctx.beginPath();
+      ctx.fillStyle = s.borderColor || '#00e7ff';
+      ctx.arc(x, y, 4, 0, Math.PI * 2);
+      ctx.fill();
+    });
+  });
+}
       drawRadar(w, h) {
         const ctx = this.ctx;
         const centerX = w / 2;
@@ -1488,6 +1910,9 @@
         this.checkStreak();
         this.save('Login realizado com sucesso.');
         this.renderAll();
+        if (window.innerWidth <= 600) {
+  this.switchTab('tab-summary');
+}
         this.openScreen();
       },
 
@@ -1863,17 +2288,36 @@
       },
 
       savePhysicalProfile() {
-        const weight = util.parseNum(document.getElementById('nutri-weight').value) || this.state.profile.weight;
-        const height = util.parseNum(document.getElementById('nutri-height').value) || this.state.profile.height;
-        this.state.profile.weight = weight;
-        this.state.profile.height = height;
-        const account = this.accounts.find(a => a.user === this.state.auth.user);
-        if (account) account.profile = structuredClone(this.state.profile);
-        this.saveAccounts();
-        this.save('Perfil físico atualizado.');
-        this.renderProfileKpis();
-        this.toast('Perfil físico salvo.', 'ok');
-      },
+  const weight = util.parseNum(document.getElementById('nutri-weight').value) || this.state.profile.weight;
+  const height = util.parseNum(document.getElementById('nutri-height').value) || this.state.profile.height;
+
+  this.state.profile.weight = weight;
+  this.state.profile.height = height;
+
+  if (!Array.isArray(this.state.history.weight)) {
+    this.state.history.weight = [];
+  }
+
+  const lastWeight = this.state.history.weight[0]?.value ?? null;
+
+  if (weight && (lastWeight === null || Number(lastWeight) !== Number(weight))) {
+    this.state.history.weight.unshift({
+      id: util.uid(),
+      value: Number(weight),
+      ts: util.now()
+    });
+    this.state.history.weight = this.state.history.weight.slice(0, 60);
+  }
+
+  const account = this.accounts.find(a => a.user === this.state.auth.user);
+  if (account) account.profile = structuredClone(this.state.profile);
+
+  this.saveAccounts();
+  this.save('Perfil físico atualizado.');
+  this.renderProfileKpis();
+  this.renderAll();
+  this.toast('Perfil físico salvo.', 'ok');
+},
 
       renderProfileKpis() {
         const profileEl = document.getElementById('profile-physical-kpi');
@@ -2754,6 +3198,186 @@
         });
       },
 
+      buildIntegratedHistory(daysBack = 10) {
+  const labels = [];
+  const weightSeries = [];
+  const moneySeries = [];
+  const targetSeries = [];
+
+  const now = new Date();
+  const start = new Date(now);
+  start.setDate(start.getDate() - (daysBack - 1));
+  start.setHours(0, 0, 0, 0);
+
+  const weightHistory = Array.isArray(this.state.history.weight) ? [...this.state.history.weight] : [];
+  const financeHistory = Array.isArray(this.state.history.finance) ? [...this.state.history.finance] : [];
+
+  const targetWeight = Number(this.state.profile?.targetWeight || 0);
+  const currentWeight = Number(this.state.profile?.weight || 0);
+
+  const weightSorted = weightHistory
+    .filter(item => item && item.ts && Number.isFinite(Number(item.value)))
+    .sort((a, b) => a.ts - b.ts);
+
+  const financeSorted = financeHistory
+    .filter(item => item && item.ts && Number.isFinite(Number(item.value)))
+    .sort((a, b) => a.ts - b.ts);
+
+  let runningMoney = 0;
+  let lastKnownWeight = weightSorted.length
+    ? Number(weightSorted[0].value)
+    : (currentWeight || 0);
+
+  for (let i = 0; i < daysBack; i++) {
+    const day = new Date(start);
+    day.setDate(start.getDate() + i);
+
+    const dayStart = new Date(day);
+    dayStart.setHours(0, 0, 0, 0);
+
+    const dayEnd = new Date(day);
+    dayEnd.setHours(23, 59, 59, 999);
+
+    const label = day.toLocaleDateString('pt-BR', {
+      day: '2-digit',
+      month: '2-digit'
+    });
+
+    const weightEntriesUntilDay = weightSorted.filter(w => w.ts <= dayEnd.getTime());
+    if (weightEntriesUntilDay.length) {
+      lastKnownWeight = Number(weightEntriesUntilDay[weightEntriesUntilDay.length - 1].value);
+    }
+
+    const financeEntriesUntilDay = financeSorted.filter(f => f.ts <= dayEnd.getTime());
+    runningMoney = financeEntriesUntilDay.reduce((acc, item) => acc + Number(item.value || 0), 0);
+
+    labels.push(label);
+    weightSeries.push(Number((lastKnownWeight || 0).toFixed(2)));
+    moneySeries.push(Number(runningMoney.toFixed(2)));
+    targetSeries.push(targetWeight > 0 ? Number(targetWeight.toFixed(2)) : null);
+  }
+
+  const weightValues = weightSeries.filter(v => Number.isFinite(v) && v > 0);
+  const moneyValues = moneySeries.filter(v => Number.isFinite(v));
+
+  const minWeight = weightValues.length ? Math.min(...weightValues) : 0;
+  const maxWeight = weightValues.length ? Math.max(...weightValues) : 100;
+  const minMoney = moneyValues.length ? Math.min(...moneyValues) : 0;
+  const maxMoney = moneyValues.length ? Math.max(...moneyValues) : 1000;
+
+  return {
+    labels,
+    weightSeries,
+    moneySeries,
+    targetSeries,
+    currentWeight: currentWeight || (weightSeries.at(-1) || 0),
+    currentMoney: this.financeBalance(),
+    minWeight,
+    maxWeight,
+    minMoney,
+    maxMoney
+  };
+},
+
+animateIntegratedChartTo(dataPack) {
+  if (!this.progressChart) return;
+
+  const currentWeight = this.progressChart.data.datasets[0].data || [];
+  const currentMoney = this.progressChart.data.datasets[1].data || [];
+  const currentTarget = this.progressChart.data.datasets[2].data || [];
+
+  const nextWeight = dataPack.weightSeries;
+  const nextMoney = dataPack.moneySeries;
+  const nextTarget = dataPack.targetSeries;
+
+  const steps = 22;
+  let frame = 0;
+
+  const baseWeight = nextWeight.map((_, i) => Number(currentWeight[i] ?? nextWeight[i] ?? 0));
+  const baseMoney = nextMoney.map((_, i) => Number(currentMoney[i] ?? nextMoney[i] ?? 0));
+  const baseTarget = nextTarget.map((_, i) => {
+    const raw = currentTarget[i] ?? nextTarget[i] ?? null;
+    return raw === null ? null : Number(raw);
+  });
+
+  const easeOut = t => 1 - Math.pow(1 - t, 3);
+
+  const tick = () => {
+    frame++;
+    const t = easeOut(Math.min(frame / steps, 1));
+
+    this.progressChart.data.labels = [...dataPack.labels];
+    this.progressChart.data.datasets[0].data = nextWeight.map((value, i) => {
+      return Number((baseWeight[i] + (value - baseWeight[i]) * t).toFixed(2));
+    });
+
+    this.progressChart.data.datasets[1].data = nextMoney.map((value, i) => {
+      return Number((baseMoney[i] + (value - baseMoney[i]) * t).toFixed(2));
+    });
+
+    this.progressChart.data.datasets[2].data = nextTarget.map((value, i) => {
+      if (value === null) return null;
+      const start = baseTarget[i] === null ? value : baseTarget[i];
+      return Number((start + (value - start) * t).toFixed(2));
+    });
+
+    this.progressChart.update();
+
+    if (frame < steps) {
+      requestAnimationFrame(tick);
+    }
+  };
+
+  requestAnimationFrame(tick);
+},
+
+updateIntegratedChart() {
+  if (!this.progressChart) return;
+
+  const pack = this.buildIntegratedHistory(10);
+
+  const weightEl = document.getElementById('integrated-physical-score');
+  const financeEl = document.getElementById('integrated-finance-score');
+
+  if (weightEl) {
+    weightEl.textContent = `${Number(pack.currentWeight || 0).toFixed(1)} kg`;
+  }
+
+  if (financeEl) {
+    financeEl.textContent = util.fmtMoney(pack.currentMoney || 0, this.state.ui.moneyMasked);
+    financeEl.className = pack.currentMoney >= 0 ? 'money-positive' : 'money-negative';
+  }
+
+  this.progressChart.options.scales = {
+    y: {
+      beginAtZero: false,
+      min: Math.floor((pack.minWeight || 0) - 2),
+      max: Math.ceil((pack.maxWeight || 100) + 2),
+      ticks: {
+        color: '#b7cfff',
+        callback: value => `${value} kg`
+      },
+      grid: {
+        color: 'rgba(116,138,190,.18)'
+      }
+    },
+    y1: {
+      position: 'right',
+      min: Math.floor((pack.minMoney || 0) - Math.max(50, Math.abs(pack.minMoney || 0) * 0.08)),
+      max: Math.ceil((pack.maxMoney || 1000) + Math.max(50, Math.abs(pack.maxMoney || 1000) * 0.08)),
+      ticks: {
+        color: '#ffd45b',
+        callback: value => this.state.ui.moneyMasked ? 'R$ ****' : util.fmtMoney(value, false)
+      },
+      grid: {
+        drawOnChartArea: false
+      }
+    }
+  };
+
+  this.animateIntegratedChartTo(pack);
+},
+
       initCharts() {
         const radarCtx = document.getElementById('radarChart').getContext('2d');
         this.radarChart = new Chart(radarCtx, {
@@ -2772,24 +3396,48 @@
         });
 
         const progressCtx = document.getElementById('progressChart').getContext('2d');
-        this.progressChart = new Chart(progressCtx, {
-          type: 'line',
-          data: {
-            labels: ['D1', 'D2', 'D3', 'D4', 'D5'],
-            datasets: [
-              { label: 'Evolução Física (score)', data: [12,18,26,34,41], borderColor: '#f26a21', backgroundColor: 'rgba(242,106,33,.08)', fill: true, tension: .32 },
-              { label: 'Patrimônio Acumulado (R$)', data: [200,300,420,560,710], borderColor: '#00e7ff', backgroundColor: 'rgba(0,231,255,.08)', fill: true, tension: .32 }
-            ]
-          },
-          options: {
-            theme: 'orange-pro',
-            plugins: { legend: { labels: { color: '#dce8ff' } } },
-            scales: {
-              x: { ticks: { color: '#b7cfff' }, grid: { color: 'rgba(116,138,190,.25)' } },
-              y: { ticks: { color: '#b7cfff' }, grid: { color: 'rgba(116,138,190,.25)' } }
-            }
-          }
-        });
+this.progressChart = new Chart(progressCtx, {
+  type: 'line',
+  data: {
+    labels: [],
+    datasets: [
+      {
+        label: 'Peso (kg)',
+        data: [],
+        borderColor: '#00e7ff',
+        backgroundColor: 'rgba(0,231,255,.10)',
+        fill: false,
+        tension: .28,
+        axis: 'left',
+        kind: 'physical'
+      },
+      {
+        label: 'Saldo acumulado (R$)',
+        data: [],
+        borderColor: '#ffd45b',
+        backgroundColor: 'rgba(255,212,91,.10)',
+        fill: false,
+        tension: .28,
+        axis: 'right',
+        kind: 'finance-balance'
+      },
+      {
+        label: 'Variação financeira',
+        data: [],
+        borderColor: '#00ffc3',
+        backgroundColor: 'rgba(0,255,195,.10)',
+        fill: false,
+        tension: .20,
+        axis: 'right',
+        kind: 'finance-delta',
+        hidden: true
+      }
+    ]
+  },
+  options: {
+    theme: 'integrated-dual'
+  }
+});
 
         const sidePhysicalCanvas = document.getElementById('sidePhysicalChart');
         if (sidePhysicalCanvas) {
@@ -2889,17 +3537,45 @@
         }
 
         if (this.progressChart) {
-          const integrated = this.makeIntegratedEvolutionSeries(30);
-          const hasData = integrated.labels.length > 0;
-          const labels = hasData ? integrated.labels : ['D1', 'D2', 'D3', 'D4', 'D5', 'D6'];
-          const physicalData = hasData ? integrated.physical : [12, 19, 27, 35, 42, 51];
-          const financeData = hasData ? integrated.financial : [80, 130, 180, 245, 310, 380];
-          this.progressChart.data.labels = labels;
-          this.progressChart.data.datasets[0].data = physicalData;
-          this.progressChart.data.datasets[1].data = financeData;
-          this.progressChart.update();
-          this.drawIntegratedFallback(labels, physicalData, financeData);
-        }
+  const weight = this.makeWeightSeries(12);
+  const financeBalance = this.makeFinanceBalanceSeries(12);
+  const financeDelta = this.makeFinanceDeltaSeries(12);
+
+  const maxLen = Math.max(
+    weight.labels.length,
+    financeBalance.labels.length,
+    financeDelta.labels.length,
+    1
+  );
+
+  const labels = Array.from({ length: maxLen }, (_, i) => {
+    return (
+      weight.labels[i] ||
+      financeBalance.labels[i] ||
+      financeDelta.labels[i] ||
+      `P${i + 1}`
+    );
+  });
+
+  const pad = (arr) => {
+    const copy = [...arr];
+    while (copy.length < maxLen) copy.unshift(null);
+    return copy;
+  };
+
+  this.progressChart.data.labels = labels;
+  this.progressChart.data.datasets[0].data = pad(weight.values);
+  this.progressChart.data.datasets[1].data = pad(financeBalance.values);
+  this.progressChart.data.datasets[2].data = pad(financeDelta.values);
+
+  const lastWeight = weight.values.at(-1) ?? 0;
+  const lastBalance = financeBalance.values.at(-1) ?? 0;
+
+  document.getElementById('integrated-physical-score').textContent = `${lastWeight} kg`;
+  document.getElementById('integrated-finance-score').textContent = util.fmtMoney(lastBalance, this.state.ui.moneyMasked);
+
+  this.progressChart.update();
+}
 
         if (this.sidePhysicalChart) {
           const workouts = this.state.history.workout.slice(0, 20).reverse();
@@ -3053,6 +3729,49 @@
         });
         return arr;
       },
+
+      makeWeightSeries(limit = 12) {
+  const items = [...(this.state.history.weight || [])]
+    .filter(item => item && Number.isFinite(Number(item.value)))
+    .sort((a, b) => a.ts - b.ts)
+    .slice(-limit);
+
+  return {
+    labels: items.map(item => util.fmtDate(item.ts)),
+    values: items.map(item => Number(item.value))
+  };
+},
+
+makeFinanceBalanceSeries(limit = 12) {
+  const items = [...(this.state.history.finance || [])]
+    .filter(item => item && Number.isFinite(Number(item.value)))
+    .sort((a, b) => a.ts - b.ts)
+    .slice(-limit);
+
+  let running = 0;
+  const labels = [];
+  const values = [];
+
+  items.forEach(item => {
+    running += Number(item.value || 0);
+    labels.push(util.fmtDate(item.ts));
+    values.push(Number(running.toFixed(2)));
+  });
+
+  return { labels, values };
+},
+
+makeFinanceDeltaSeries(limit = 12) {
+  const items = [...(this.state.history.finance || [])]
+    .filter(item => item && Number.isFinite(Number(item.value)))
+    .sort((a, b) => a.ts - b.ts)
+    .slice(-limit);
+
+  return {
+    labels: items.map(item => util.fmtDate(item.ts)),
+    values: items.map(item => Number(item.value || 0))
+  };
+},
       makeIntegratedEvolutionSeries(limit=18) {
         const byDay = new Map();
 
