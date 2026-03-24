@@ -51,6 +51,11 @@
       z-index: -10;
     }
 
+    body, p, span, small, strong, label, h1, h2, h3, h4, h5, h6,
+    input, textarea, select, button, option {
+      color: var(--text);
+    }
+
     .noise-layer {
       position: fixed;
       inset: 0;
@@ -618,7 +623,7 @@
       .header { flex-direction: column; align-items: flex-start; }
       .header-actions { width: 100%; }
       .header-actions .btn { flex: 1; min-width: 120px; }
-      .tabs { position: sticky; top: 0; z-index: 20; background: rgba(6,10,20,.95); padding: 8px; border-radius: 10px; }
+      .tabs { background: rgba(6,10,20,.95); padding: 8px; border-radius: 10px; }
       .kpi-grid { grid-template-columns: 1fr 1fr; }
       .grid-4 { grid-template-columns: 1fr 1fr; }
       .grid-3 { grid-template-columns: 1fr 1fr; }
@@ -669,13 +674,7 @@
       .header {
         margin-top: 4px;
         padding: 8px;
-        position: sticky;
-        top: 0;
-        z-index: 30;
         background: rgba(8, 12, 22, 0.96);
-      }
-      body.standalone-mode .header {
-        top: env(safe-area-inset-top, 0px);
       }
       .header-actions { grid-template-columns: 1fr; }
       .tabs {
