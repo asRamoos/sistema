@@ -1,0 +1,14 @@
+{
+  "name": "Shadow System Professional",
+  "short_name": "ShadowSystem",
+  "description": "Sistema offline de evolução física, nutrição e finanças com múltiplas contas.",
+  "id": "./index.html",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#05060f",
+  "theme_color": "#05060f",
+  "categories": ["health", "fitness", "finance", "productivity"],
+  "icons": []
+}
