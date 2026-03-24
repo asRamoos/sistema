@@ -2,7 +2,12 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#05060f" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="ShadowSystem" />
   <title>Shadow System Professional | Monarch Console</title>
   <link rel="manifest" href="manifest.webmanifest" />
   <style>
@@ -29,13 +34,12 @@
     }
 
     * { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; }
-    body {
-      min-height: 100vh;
-      color: var(--text);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: radial-gradient(circle at top, #101832 0%, var(--bg) 42%, #020309 100%);
-      overflow-x: hidden;
+     html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      min-height: 100svh;
+      background: #05060f;
     }
 
     #bg-canvas {
@@ -66,6 +70,8 @@
     .screen {
       width: 100%;
       min-height: 100vh;
+      min-height: 100svh;
+      min-height: 100dvh;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -586,6 +592,7 @@
     }
 
     @media (max-width: 560px) {
+      body.browser-mobile { --browser-offset: 12px; }
       .screen { padding: 10px; }
       .card { border-radius: 10px; }
       .login-hero, .login-panel { padding: 14px; }
@@ -595,361 +602,79 @@
       .kpi strong { font-size: 18px; }
       .focus-overlay p { font-size: 14px; }
       .toast-wrap { right: 8px; bottom: 8px; }
+      .header { gap: 10px; }
+      .header-actions { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
+      .header-actions .btn, .header-actions .chip { width: 100%; min-width: 0; text-align: center; justify-content: center; }
     }
 
     /* Redmi Note 14 4G and similar widths */
     @media (max-width: 430px) {
+      body.browser-mobile { --browser-offset: 14px; }
+      .screen { padding: 8px; align-items: flex-start; }
+      .card { width: 100%; border-radius: 10px; }
       .app-shell { padding: 6px; gap: 6px; }
-      .panel { padding: 8px; border-radius: 10px; }
-      .tabs { padding: 6px; }
-      .tab-btn { font-size: 12px; padding: 8px 10px; }
-      input, textarea, select, .btn { font-size: 14px; min-height: 42px; }
+      .panel { padding: 8px; border-radius: 10px; margin-bottom: 8px; }
+      .header {
+        margin-top: 4px;
+        padding: 8px;
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        background: rgba(8, 12, 22, 0.96);
+      }
+      body.standalone-mode .header {
+        top: env(safe-area-inset-top, 0px);
+      }
+      .header-actions { grid-template-columns: 1fr; }
+      .tabs {
+        padding: 6px 6px 4px;
+        margin-bottom: 8px;
+        overflow-x: auto;
+        white-space: nowrap;
+        scrollbar-width: none;
+      }
+      .tabs::-webkit-scrollbar { display: none; }
+      .tab-btn { font-size: 12px; padding: 9px 10px; min-height: 40px; }
+      .hero-stats,
+      .chart-meta-grid,
+      .music-grid { grid-template-columns: 1fr; }
+      .goal-top,
+      .quest-row,
+      .inventory-item,
+      .utility-row { align-items: stretch; flex-direction: column; }
+      .goal-top .btn,
+      .quest-row .btn,
+      .inventory-item .btn,
+      .utility-row .btn { width: 100%; }
+      .rank-big { font-size: 46px; }
+      .kpi strong { font-size: 17px; }
+      input, textarea, select, .btn { font-size: 14px; min-height: 44px; }
       .line-wrapper { height: 180px; }
       .integrated-chart-wrapper { height: 210px; }
+      .radar-wrapper { height: 220px; }
+      .toast-wrap {
+        right: 6px;
+        left: 6px;
+        bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+        width: auto;
+      }
     }
 
-    /* ===== MOBILE FIT REAL ===== */
+    @media (max-width: 412px) {
+      body.browser-mobile { --browser-offset: 16px; }
+      .screen { padding: 6px; }
+      .login-hero, .login-panel { padding: 12px; }
+      .logo { letter-spacing: 2px; font-size: 20px; }
+      .subtitle { font-size: 13px; }
+      .title { font-size: 13px; letter-spacing: 1.4px; }
+      .chip { font-size: 10px; padding: 4px 7px; }
+      .panel { padding: 7px; }
+      .section-title { font-size: 10px; }
+      .tab-btn { font-size: 11px; padding: 8px 9px; }
+      .focus-time { font-size: 54px; }
+    }
 
-html, body {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
-* {
-  box-sizing: border-box;
-  min-width: 0;
-}
-
-body {
-  font-size: 14px;
-}
-
-img,
-canvas,
-video,
-svg {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-.card,
-.panel,
-.header,
-.kpi,
-.goal-card,
-.overall-panel,
-.login-hero,
-.login-panel,
-.hero-item,
-.overall-stat {
-  min-width: 0;
-}
-
-.app-shell,
-.grid-2,
-.grid-3,
-.grid-4,
-.kpi-grid,
-.chart-meta-grid,
-.overall-grid,
-.music-grid,
-.hero-stats {
-  min-width: 0;
-}
-
-.line-wrapper,
-.integrated-chart-wrapper,
-.radar-wrapper {
-  width: 100%;
-  min-width: 0;
-  overflow: hidden;
-}
-
-.line-wrapper canvas,
-.integrated-chart-wrapper canvas,
-.radar-wrapper canvas {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-/* DESKTOP */
-@media (min-width: 901px) {
-  .app-shell {
-    grid-template-columns: 320px minmax(0, 1fr) 320px;
-    gap: 12px;
-    padding: 16px;
-  }
-}
-
-/* TABLET E CELULAR */
-@media (max-width: 900px) {
-  .app-shell {
-    grid-template-columns: 1fr !important;
-    gap: 8px;
-    padding: 8px;
-    width: 100%;
-  }
-
-  .header {
-    width: calc(100% - 16px);
-    margin: 8px auto 0;
-    padding: 10px;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-  }
-
-  .title {
-    width: 100%;
-    text-align: center;
-    font-size: 14px;
-    letter-spacing: 1px;
-  }
-
-  .header-actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    width: 100%;
-  }
-
-  .header-actions .btn,
-  .header-actions .chip {
-    width: 100%;
-    text-align: center;
-    justify-content: center;
-  }
-
-  .tabs {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    white-space: nowrap;
-    gap: 6px;
-    padding-bottom: 4px;
-    scrollbar-width: thin;
-  }
-
-  .tab-btn {
-    flex: 0 0 auto;
-    white-space: nowrap;
-    font-size: 12px;
-    padding: 8px 10px;
-  }
-
-  .grid-2,
-  .grid-3,
-  .grid-4,
-  .kpi-grid,
-  .chart-meta-grid,
-  .overall-grid,
-  .music-grid,
-  .hero-stats {
-    grid-template-columns: 1fr !important;
-  }
-
-  .panel {
-    padding: 10px;
-    border-radius: 12px;
-    margin-bottom: 8px;
-  }
-
-  .kpi {
-    padding: 10px;
-  }
-
-  .rank-big {
-    font-size: 40px;
-  }
-
-  .overall-main {
-    padding: 12px;
-  }
-
-  .overall-main strong {
-    font-size: 34px;
-  }
-
-  .overall-stat strong {
-    font-size: 20px;
-  }
-
-  .metric {
-    flex-direction: row;
-    align-items: center;
-    gap: 8px;
-    font-size: 13px;
-  }
-
-  .line-wrapper {
-    height: 180px !important;
-  }
-
-  .integrated-chart-wrapper {
-    height: 200px !important;
-  }
-
-  .radar-wrapper {
-    height: 190px !important;
-  }
-
-  .timeline,
-  .mini-list {
-    max-height: 180px;
-  }
-
-  .utility-row {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 8px;
-  }
-
-  .utility-row .btn,
-  .utility-row input,
-  .utility-row select {
-    width: 100%;
-  }
-}
-
-/* CELULAR */
-@media (max-width: 600px) {
-  .screen {
-    padding: 8px;
-  }
-
-  .card {
-    width: 100%;
-    border-radius: 10px;
-  }
-
-  .login-shell {
-    grid-template-columns: 1fr !important;
-    min-height: auto;
-  }
-
-  .login-hero {
-    padding: 12px;
-    border-right: none;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .login-panel {
-    padding: 12px;
-  }
-
-  .logo {
-    font-size: 22px;
-    letter-spacing: 2px;
-  }
-
-  .subtitle {
-    font-size: 13px;
-  }
-
-  .header {
-    padding: 8px;
-  }
-
-  .header-actions {
-    grid-template-columns: 1fr;
-  }
-
-  .title {
-    font-size: 13px;
-  }
-
-  .chip {
-    font-size: 11px;
-  }
-
-  .section-title,
-  .small-muted {
-    font-size: 11px;
-  }
-
-  .btn,
-  input,
-  textarea,
-  select {
-    min-height: 42px;
-    font-size: 14px;
-    padding: 10px 12px;
-  }
-
-  .rank-big {
-    font-size: 34px;
-  }
-
-  .overall-main strong {
-    font-size: 28px;
-  }
-
-  .overall-stat strong {
-    font-size: 18px;
-  }
-
-  .line-wrapper {
-    height: 165px !important;
-  }
-
-  .integrated-chart-wrapper {
-    height: 185px !important;
-  }
-
-  .radar-wrapper {
-    height: 170px !important;
-  }
-
-  .metric {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .goal-top {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .toast-wrap {
-    right: 8px;
-    left: 8px;
-    bottom: 8px;
-    width: auto;
-  }
-}
-
-/* TELEFONE PEQUENO */
-@media (max-width: 390px) {
-  .panel,
-  .login-hero,
-  .login-panel {
-    padding: 8px;
-  }
-
-  .title {
-    font-size: 12px;
-  }
-
-  .tab-btn {
-    font-size: 11px;
-    padding: 7px 9px;
-  }
-
-  .line-wrapper {
-    height: 150px !important;
-  }
-
-  .integrated-chart-wrapper {
-    height: 170px !important;
-  }
-
-  .radar-wrapper {
-    height: 155px !important;
-  }
-}
-    
+ 
   </style>
 </head>
 <body>
@@ -1741,6 +1466,7 @@ svg {
       async init() {
         this.load();
         this.initCanvas();
+        this.applyDisplayMode();
         this.registerServiceWorker();
         this.bindInstallPrompt();
         this.bindClock();
@@ -1750,6 +1476,7 @@ svg {
         this.renderAll();
         this.openScreen();
         window.addEventListener('resize', () => this.updateCharts());
+        window.matchMedia('(display-mode: standalone)').addEventListener?.('change', () => this.applyDisplayMode());
       },
 
       load() {
@@ -1811,6 +1538,19 @@ svg {
           const btn = document.getElementById('install-app-btn');
           if (btn) btn.disabled = false;
         });
+        window.addEventListener('appinstalled', () => {
+          this.applyDisplayMode();
+          this.toast('Abra pelo icone instalado para usar sem a barra do Chrome.', 'ok');
+          const btn = document.getElementById('install-app-btn');
+          if (btn) btn.disabled = true;
+        });
+      },
+
+      applyDisplayMode() {
+        const standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+        const mobileWidth = window.innerWidth <= 430;
+        document.body.classList.toggle('standalone-mode', standalone);
+        document.body.classList.toggle('browser-mobile', !standalone && mobileWidth);
       },
 
       async installApp() {
